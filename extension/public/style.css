@@ -1,13 +1,4 @@
-let sidebar = document.querySelector('.Layout-sidebar');
-let div = document.createElement('div');
-function Explanation(){
-    let text = "EXplaNation"
-    div.innerHTML = ``
-}
-let text = "hello"
-div.innerHTML = `
-<style>
-.total{
+* {
     background-color: #0d1117;
 }
 .gitguru-text {
@@ -31,11 +22,14 @@ div.innerHTML = `
     margin-left: 16px;
 }
 
-.header{
+header{
     background-color: #161b22;
-    height: 38px;
+    height: 26px;
     text-align: left;
-    position: relative;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
     border-top-left-radius: 6px;
     border-top-right-radius: 6px;
     display: flex;
@@ -46,12 +40,12 @@ div.innerHTML = `
     display: flex;
     flex-wrap: wrap;
     border-radius: 0.4rem;
-    background-color: #0d1117;
+    background-color: #EEE;
     box-sizing: border-box;
     box-shadow: 0 0 0px 1px rgba(0, 0, 0, 0.06);
     width: 300px;
     margin: auto;
-    margin-top: 10px;
+    margin-top: 32px;
     font-size: 14px;
 }
 
@@ -85,7 +79,7 @@ div.innerHTML = `
     display: block;
     color: #EEE;
     font-size: 14px;
-    width: 100%;
+    width: 80%;
     padding: 12px 20px;
     align-items: center;
     margin: 8px auto;
@@ -94,33 +88,3 @@ div.innerHTML = `
     background-color: #161b22;
     resize: none;
 }
-</style>
-
-<div class = "total">
-<div class="header">
-<img src="logo.png" alt="GitGuru Logo" class="logo-small" />
-<div class="gitguru-text">
-Git Guru
-</div>
-</div>
-<div class='wow'>
-<div class="radio-inputs">
-<label class="radio">
-<input type="radio" name="radio" checked />
-<span class="name">Explanation</span>
-</label>
-<label class="radio">
-<input type="radio" name="radio" />
-<span class="name">Summary</span>
-</label>
-<label class="radio">
-<input type="radio" name="radio" />
-<span class="name">Solutions</span>
-</label>
-</div>
-${text = "Meow"}
-<p class="textBox">${text}</p>
-</div>
-</div>
-`;
-sidebar.insertBefore(div, sidebar.firstChild);

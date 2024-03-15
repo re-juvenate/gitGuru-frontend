@@ -1,24 +1,32 @@
 {
   "manifest_version": 3,
-  "name": "GitHub Issue Tracker",
+  "name": "GitGuru Extension",
   "version": "1.0",
-  "description": "Track GitHub Issues and send URLs to backend.",
+  "description": "Description of your extension",
   "permissions": [
-    "activeTab",
-    "storage"
+      "activeTab"
   ],
-  "background": {
-    "service_worker": "background.js"
-  },
   "content_scripts": [
-    {
-      "matches": ["*://github.com/*/issues/*"],
-      "js": ["content.js"]
-    }
+      {
+          "matches": [
+              "<all_urls>"
+          ],
+          "js": [
+              "content.js"
+          ]
+      }
   ],
   "icons": {
-    "16": "icon.png",
-    "48": "icon.png",
-    "128": "icon.png"
-  }
+      "48": "faviconTransparent.png",
+      "128": "faviconTransparent.png"
+  },
+  "background": {
+      "service_worker": "background.js"
+  },
+  "web_accessible_resources": [
+      {
+          "resources": ["assets/*","style.css"],
+          "matches": ["<all_urls>"]
+      }
+  ]
 }
