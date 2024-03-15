@@ -1,15 +1,28 @@
 {
   "manifest_version": 3,
-  "name": "Github",
-  "description": "this is a github extension",
-  "version": "1.0.0",
-  "action":{
-    "default_popup": "index.html"
-  },
-  "permissions": ["activeTab"],
+  "name": "GitHub Issue Tracker",
+  "version": "1.0",
+  "description": "Track GitHub Issues and send URLs to backend.",
+  "permissions": [
+    "activeTab",
+    "storage"
+  ],
   "background": {
+    "service_worker": "src/background/background.js",
+    "persistent": false
   },
-"matches": [
-    "https://github.com/*/*/issues/*"
-]
+  "content_scripts": [
+    {
+      "matches": ["*://github.com/*/issues/*"],
+      "js": ["src/content/content.js"]
+    }
+  ],
+  "icons": {
+    "16": "src/assets/icon.png",
+    "48": "src/assets/icon.png",
+    "128": "src/assets/icon.png"
+  },
+  "action": {
+    "default_popup": "index.html"
+  }
 }
