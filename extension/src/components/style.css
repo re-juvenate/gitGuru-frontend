@@ -24,7 +24,6 @@
 
 header{
     background-color: #161b22;
-    border: 1px solid #238636;
     height: 26px;
     text-align: left;
     position: fixed;
@@ -74,4 +73,18 @@ header{
 .radio-inputs .radio input:checked + .name {
     background-color: #fff;
     font-weight: 600;
+}
+
+.textBox {
+    display: block;
+    color: #EEE;
+    font-size: 14px;
+    width: 80%;
+    padding: 12px 20px;
+    align-items: center;
+    margin: 8px auto;
+    box-sizing: border-box;
+    border-radius: 4px;
+    background-color: #161b22;
+    resize: none;
 }
