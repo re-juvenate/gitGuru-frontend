@@ -1,11 +1,16 @@
 let sidebar = document.querySelector('.Layout-sidebar');
 let div = document.createElement('div');
+function Explanation(){
+    let text = "EXplaNation"
+    div.innerHTML = ``
+}
+let text = "hello"
 div.innerHTML = `
 <style>
-  * {
+.total{
     background-color: #0d1117;
-  }
-  .gitguru-text {
+}
+.gitguru-text {
     color: white;
     font-size: 14px;
     font-weight: bold;
@@ -15,51 +20,51 @@ div.innerHTML = `
     background-color: #161b22;
     letter-spacing: normal;
     font-family: BlinkMacSystemFont, "Segoe UI", "Noto Sans", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
-  }
+}
 
-  .logo-small {
+.logo-small {
     margin-top: auto;
     background-color: #161b22;
     margin-bottom: auto;
     width: 22px;
     height: 22px;
     margin-left: 16px;
-  }
+}
 
-  .header-div{
+.header{
     background-color: #161b22;
-    height: 26px;
+    height: 38px;
     text-align: left;
     position: relative;
-    display: flex;
     border-top-left-radius: 6px;
     border-top-right-radius: 6px;
-  }
+    display: flex;
+}
 
-  .radio-inputs {
+.radio-inputs {
     position: relative;
     display: flex;
     flex-wrap: wrap;
     border-radius: 0.4rem;
-    background-color: #EEE;
+    background-color: #0d1117;
     box-sizing: border-box;
     box-shadow: 0 0 0px 1px rgba(0, 0, 0, 0.06);
     width: 300px;
     margin: auto;
-    margin-top: 32px;
+    margin-top: 10px;
     font-size: 14px;
-  }
+}
 
-  .radio-inputs .radio {
+.radio-inputs .radio {
     flex: 1 1 auto;
     text-align: center;
-  }
+}
 
-  .radio-inputs .radio input {
+.radio-inputs .radio input {
     display: none;
-  }
+}
 
-  .radio-inputs .radio .name {
+.radio-inputs .radio .name {
     display: flex;
     cursor: pointer;
     align-items: center;
@@ -69,18 +74,18 @@ div.innerHTML = `
     padding: .5rem 0;
     color: rgba(51, 65, 85, 1);
     transition: all .15s ease-in-out;
-  }
+}
 
-  .radio-inputs .radio input:checked + .name {
+.radio-inputs .radio input:checked + .name {
     background-color: #fff;
     font-weight: 600;
-  }
+}
 
-  .textBox {
+.textBox {
     display: block;
     color: #EEE;
     font-size: 14px;
-    width: 80%;
+    width: 100%;
     padding: 12px 20px;
     align-items: center;
     margin: 8px auto;
@@ -88,33 +93,34 @@ div.innerHTML = `
     border-radius: 4px;
     background-color: #161b22;
     resize: none;
-  }
+}
 </style>
-<div>
-  <div class="header-div">
-    <img src="logo.png" alt="GitGuru Logo" class="logo-small" />
-    <div class="gitguru-text">
-      Git Guru
-    </div>
-  </div>
-  <div class='wow'>
-    <div class="radio-inputs">
-      <label class="radio">
-        <input type="radio" value="Explanation" checked />
-        <span class="name">Explanation</span>
-      </label>
-      <label class="radio">
-        <input type="radio" value="Summary" />
-        <span class="name">Summary</span>
-      </label>
-      <label class="radio">
-        <input type="radio" value="Solutions" />
-        <span class="name">Solutions</span>
-      </label>
-    </div>
-    <p class="textBox"></p>
-  </div>
+
+<div class = "total">
+<div class="header">
+<img src="logo.png" alt="GitGuru Logo" class="logo-small" />
+<div class="gitguru-text">
+Git Guru
+</div>
+</div>
+<div class='wow'>
+<div class="radio-inputs">
+<label class="radio">
+<input type="radio" name="radio" checked />
+<span class="name">Explanation</span>
+</label>
+<label class="radio">
+<input type="radio" name="radio" />
+<span class="name">Summary</span>
+</label>
+<label class="radio">
+<input type="radio" name="radio" />
+<span class="name">Solutions</span>
+</label>
+</div>
+${text = "Meow"}
+<p class="textBox">${text}</p>
+</div>
 </div>
 `;
-
 sidebar.insertBefore(div, sidebar.firstChild);
