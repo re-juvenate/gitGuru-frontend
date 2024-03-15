@@ -1,0 +1,15 @@
+{
+  "manifest_version": 3,
+  "name": "Github",
+  "description": "this is a github extension",
+  "version": "1.0.0",
+  "action":{
+    "default_popup": "index.html"
+  },
+  "permissions": ["activeTab"],
+  "background": {
+  },
+"matches": [
+    "https://github.com/*/*/issues/*"
+]
+}
