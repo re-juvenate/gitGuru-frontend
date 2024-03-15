@@ -8,21 +8,17 @@
     "storage"
   ],
   "background": {
-    "service_worker": "src/background/background.js",
-    "persistent": false
+    "service_worker": "background.js"
   },
   "content_scripts": [
     {
       "matches": ["*://github.com/*/issues/*"],
-      "js": ["src/content/content.js"]
+      "js": ["content.js"]
     }
   ],
   "icons": {
-    "16": "src/assets/icon.png",
-    "48": "src/assets/icon.png",
-    "128": "src/assets/icon.png"
-  },
-  "action": {
-    "default_popup": "index.html"
+    "16": "icon.png",
+    "48": "icon.png",
+    "128": "icon.png"
   }
 }
