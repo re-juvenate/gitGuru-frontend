@@ -116,7 +116,7 @@ Git Guru
 <input type="radio" name="radio" value="Solutions" />
 <span class="name">Solutions</span>
 </label>
-<textarea class="textBox" id="resultBox" readonly>BILLA</textarea>
+<p class="textBox" id="resultBox" readonly>BILLA</p>
 </div>
 `;
 sidebar.insertBefore(div, sidebar.firstChild);
@@ -125,13 +125,17 @@ let r1 = document.querySelector("#r1 input");
 let r2 = document.querySelector("#r2 input");
 let r3 = document.querySelector("#r3 input");
 
-// localStorage.clear();
+
+localStorage.clear();
+// console.log(localStorage);
+// console.log(window.location.href);
+
 if (r1.checked)
   if (localStorage.getItem("explanation")) {
-    document.getElementById("resultBox").value =
+    document.getElementById("resultBox").textContent =
       localStorage.getItem("explanation");
   } else {
-    document.getElementById("resultBox").value = "explanation";
+    document.getElementById("resultBox").textContent = "explanation";
     localStorage.setItem("explanation", "explanation");
     // fetch("http://localhost:5000/explanation")
     //     .then((response) => response.json())
@@ -144,10 +148,10 @@ if (r1.checked)
   radioButton.addEventListener("change", () => {
     if (r1.checked) {
       if (localStorage.getItem("explanation")) {
-        document.getElementById("resultBox").value =
+        document.getElementById("resultBox").textContent =
           localStorage.getItem("explanation");
       } else {
-        document.getElementById("resultBox").value = "explanation";
+        document.getElementById("resultBox").textContent = "explanation";
         localStorage.setItem("explanation", "explanation");
         // fetch("http://localhost:5000/explanation")
         //     .then((response) => response.json())
@@ -156,26 +160,37 @@ if (r1.checked)
         //         localStorage.setItem("explanation", data.explanation);
         //     });
       }
-    } else if (r2.checked) {
+    }
+     else if (r2.checked) {
       if (localStorage.getItem("summary")) {
-        document.getElementById("resultBox").value =
-          localStorage.getItem("summary");
+        document.getElementById("resultBox").textContent = localStorage.getItem("summary");
       } else {
-        document.getElementById("resultBox").value = "Summary";
-        localStorage.setItem("summary", "Summary");
-        // fetch("http://localhost:5000/summary")
-        //     .then((response) => response.json())
-        //     .then((data) => {
-        //         document.getElementById("resultBox").value = data.summary;
-        //         localStorage.setItem("summary", data.summary);
-        //     });
+        let data = { url: `${window.location.href}` };
+        fetch("https://zephyrus.tailafc78.ts.net/summ_msgs/", {
+          method: 'POST',
+          headers: {
+            'Accept':'application/json',
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(data)
+        })
+        .then((response) => response.json())
+        .then((data) => {
+
+          console.log(data);
+          document.getElementById("resultBox").textContent = data.summary;
+          localStorage.setItem("summary", data.summary);
+        })
+        .catch((error) => console.error('Error:', error));
       }
-    } else if (r3.checked) {
+    }
+
+     else if (r3.checked) {
       if (localStorage.getItem("solutions")) {
-        document.getElementById("resultBox").value =
+        document.getElementById("resultBox").textContent =
           localStorage.getItem("solutions");
       } else {
-        document.getElementById("resultBox").value = "Solutions";
+        document.getElementById("resultBox").textContent = "Solutions";
         localStorage.setItem("solutions", "Solutions");
         // fetch("http://localhost:5000/solutions")
         //     .then((response) => response.json())
