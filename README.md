@@ -12,7 +12,7 @@ This project is a browser extension that enhances the GitHub issue page by injec
 
 ## Installation
 
-1. Clone the repository by running the following command: `git clone https://github.com/your-username/gitGuru-frontend.git`
+1. Clone the repository by running the following command: `https://github.com/re-juvenate/gitGuru-frontend.git`
 2. This project is built with pure JavaScript and CSS, so no additional dependencies are required.
 
 ## Usage
