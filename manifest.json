@@ -1,8 +1,8 @@
 {
     "manifest_version": 3,
-    "name": "GitHub",
+    "name": "GitHub Guru",
     "version": "1.0",
-    "description": "Track GitHub Issues and send URLs to backend.",
+    "description": "Help users to get better understanding of the GitHub issues.",
     "permissions": [
       "activeTab",
       "storage"
