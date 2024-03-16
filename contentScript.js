@@ -4,7 +4,10 @@ let div = document.createElement("div");
 div.innerHTML = `
 <style>
 .total{
-    background-color: #0d1117;
+  background-color: #0d1117;
+  border: 1px solid white;
+  border-radius: 10px;
+  padding: 10px;
 }
 .gitguru-text {
     color: white;
@@ -38,43 +41,38 @@ div.innerHTML = `
 }
 
 .radio-inputs {
-    position: relative;
-    display: flex;
-    flex-wrap: wrap;
-    border-radius: 0.6px;
-    background-color: #0d1117;
-    box-sizing: border-box;
-    box-shadow: 0 0 0px 1px rgba(0, 0, 0, 0.06);
-    width: 300px;
-    margin: auto;
-    margin-top: 10px;
-    font-size: 14px;
+  display: flex;
+  justify-content: space-around;
+  background-color: #0d1117;
+  width: 100%;
+  max-width: 300px;
+  margin: 10px auto;
+  font-size: 14px;
 }
 
-.radio-inputs .radio {
-    flex: 1 1 auto;
-    text-align: center;
+.radio {
+  flex: 1;
+  text-align: center;
 }
 
-.radio-inputs .radio input {
-    display: none;
+.radio input {
+  display: none;
 }
 
-.radio-inputs .radio .name {
-    display: flex;
-    cursor: pointer;
-    align-items: center;
-    justify-content: center;
-    border-radius: 0.4rem;
-    border: none;
-    padding: .5rem 0;
-    color: rgba(51, 65, 85, 1);
-    transition: all .15s ease-in-out;
+.name {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: .5rem 0;
+  color: rgba(51, 65, 85, 1);
+  transition: all .15s ease-in-out;
+  cursor: pointer;
+  border-radius: 15px;
 }
 
-.radio-inputs .radio input:checked + .name {
-    background-color: #fff;
-    font-weight: 600;
+input:checked + .name {
+  background-color: #fff;
+  font-weight: 600;
 }
 
 .scale{
@@ -355,6 +353,32 @@ div.innerHTML = `
     opacity: 0;
   }
 }
+
+.wow {
+  border: 1px solid white;
+  border-radius: 10px;
+  padding: 10px;
+  overflow: auto; /* Add this line */
+}
+
+.radio-inputs {
+  width: 100%; /* Takes up the full width of its container */
+}
+
+.radio {
+  display: inline-block; /* Allows the labels to resize */
+  width: 30%; /* Adjust this value to resize the radio buttons */
+  margin: 5px; /* Adds some space around the radio buttons */
+}
+
+/* Makes the radio buttons smaller on smaller screens */
+@media (max-width: 600px) {
+  .radio {
+    width: 50%;
+  }
+}
+
+
 
 </style>
 
