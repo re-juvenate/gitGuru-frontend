@@ -1,6 +1,6 @@
 {
     "manifest_version": 3,
-    "name": "GitHub Guru",
+    "name": "Git Guru",
     "version": "1.0",
     "description": "Help users to get better understanding of the GitHub issues.",
     "permissions": [
