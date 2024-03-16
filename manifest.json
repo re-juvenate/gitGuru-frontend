@@ -1,0 +1,19 @@
+{
+    "manifest_version": 3,
+    "name": "GitHub",
+    "version": "1.0",
+    "description": "Track GitHub Issues and send URLs to backend.",
+    "permissions": [
+      "activeTab",
+      "storage"
+    ],
+    "background": {
+      "service_worker": "background.js"
+    },
+    "content_scripts": [
+      {
+        "matches": ["*://github.com/*/issues/*"],
+        "js": ["contentScript.js"]
+      }
+    ]
+  }
