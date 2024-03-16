@@ -3,18 +3,20 @@ import {useState} from 'react';
 const App = () => {
   const [Res, setRes] = useState(null);
 
-  const getRandomUser = async () => {
+  const getRandomUser = async (para="default") => {
     // Get users
-    const req = await fetch('http://loacalhost:3000/');
-    const data = await resp.json();
+    const req = await fetch(`http://loacalhost:3000/${para}`);
+    const data = await req.json();
     const msg = data["results"][0];
-    
-    // Get active tab
     const tabs = await chrome.tabs.query({active: true, currentWindow: true});
     const activeTab = tabs[0];
-    // Get the response
     const tabResp = await chrome.tabs.sendMessage(activeTab.id, msg);
-    setScriptResp(tabResp);
+
+    if(tabResp ){
+      setRes(tabResp);
+      getRandomUser(Res);
+    }
+
   };
 
   return (

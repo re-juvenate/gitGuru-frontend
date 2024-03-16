@@ -1,10 +1,6 @@
 let sidebar = document.querySelector('.Layout-sidebar');
 let div = document.createElement('div');
-function Explanation(){
-    let text = "EXplaNation"
-    div.innerHTML = ``
-}
-let text = "hello"
+
 div.innerHTML = `
 <style>
 .total{
@@ -106,21 +102,43 @@ Git Guru
 <div class='wow'>
 <div class="radio-inputs">
 <label class="radio">
-<input type="radio" name="radio" checked />
+<input type="radio" name="radio" value="Explanation" checked />
 <span class="name">Explanation</span>
 </label>
 <label class="radio">
-<input type="radio" name="radio" />
+<input type="radio" name="radio" value="Summary" />
 <span class="name">Summary</span>
 </label>
 <label class="radio">
-<input type="radio" name="radio" />
+<input type="radio" name="radio" value="Solutions" />
 <span class="name">Solutions</span>
 </label>
-</div>
-${text = "Meow"}
-<p class="textBox">${text}</p>
-</div>
+<textarea class="textBox" id="resultBox" readonly>BILLA</textarea>
 </div>
 `;
+
+let r2 =0;
+let r3 =0;
 sidebar.insertBefore(div, sidebar.firstChild);
+
+chrome.runtime.onMessage.addListener(
+    function(request, sender, sendResponse) {
+        console.log(request);
+        
+        let radio = document.querySelectorAll('.radio-inputs .radio input');
+
+        radio.forEach((input) => {
+            
+            input.addEventListener('change', (e) => {
+                if (input.value === "Summary"&&r2==0) {
+                    sendResponse(e.target.value);
+                    r2++;
+                }else if(input.value === "Solutions"&&r3==0){
+                    sendResponse(e.target.value);
+                    r3++;
+                }
+            });
+        })
+    }
+);
+
