@@ -489,7 +489,7 @@ if (r2.checked) {
     .then((data) => {
 
       console.log(data);
-      text = data.text;
+      text = data.text.replace(/\n/g, "<br>");
       localStorage.setItem("summary", data.text);
       enable();
       writer();
