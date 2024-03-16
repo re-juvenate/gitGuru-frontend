@@ -320,6 +320,7 @@ div.innerHTML = `
 .textBox {
     display: block;
     color: #EEE;
+    background-color: #161b22;
     font-size: 14px;
     width: 100%;
     padding: 12px 20px;
