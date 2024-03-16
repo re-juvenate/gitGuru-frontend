@@ -317,22 +317,11 @@ div.innerHTML = `
   }
 }
 
-.wrapper {
-  /*This part is important for centering*/
-  display: grid;
-  place-items: center;
-}
-
 .textBox {
     display: block;
     color: #EEE;
     font-size: 14px;
     width: 100%;
-    animation: typing 2s steps(22), blink .5s step-end infinite alternate;
-    white-space: nowrap;
-    overflow: hidden;
-    border-right: 3px solid;
-
     padding: 12px 20px;
     align-items: start;
     margin: 8px auto;
@@ -351,6 +340,20 @@ div.innerHTML = `
   50% {
     border-color: transparent
   }
+
+.blinking-cursor {
+  margin-left: 5px;
+  background-color: #fff;
+  animation: blink 1s infinite;
+}
+@keyframes blink {
+  0%, 50% {
+    opacity: 1;
+  }
+  50.1%, 100% {
+    opacity: 0;
+  }
+}
 
 </style>
 
@@ -387,56 +390,70 @@ div.innerHTML = `
             <div class="keyboard"></div>
           </div>
         </div>
-        <div class="wrapper">
-          <p class="textBox" id="resultBox" readonly>BILLA</p>
+        <div class="wrapper" id="typewriter">
+          <p class="textBox" id="resultBox" readonly>... </p>
         </div>
     </div>
 </div>
 `;
 sidebar.insertBefore(div, sidebar.firstChild);
 
+let text ="";
+
+const typewriter = document.getElementById('typewriter');
+let index = 0;
+function type() {
+  if (index < text.length) {
+    typewriter.innerHTML = text.slice(0, index) + '<span class="blinking-cursor">|</span>';
+    index++;
+    setTimeout(type, Math.random() * 1 + 50);
+    } else {
+      typewriter.innerHTML = text.slice(0, index) + '<span class="blinking-cursor">|</span>';
+    }
+}
+
 let r1 = document.querySelector("#r1 input");
 let r2 = document.querySelector("#r2 input");
 let r3 = document.querySelector("#r3 input");
 
 localStorage.clear();
-// console.log(localStorage);
-// console.log(window.location.href);
 
 if (r1.checked)
   if (localStorage.getItem("explanation")) {
-    document.getElementById("resultBox").textContent =
-      localStorage.getItem("explanation");
+    text=localStorage.getItem("explanation");
   } else {
-    document.getElementById("resultBox").textContent = "explanation";
-    localStorage.setItem("explanation", "explanation");
-    // fetch("http://localhost:5000/explanation")
-    //     .then((response) => response.json())
-    //     .then((data) => {
-    //         document.getElementById("resultBox").value = data.explanation;
-    //         localStorage.setItem("explanation", data.explanation);
-    //     });
+    let data = { url: `${window.location.href}` };
+    fetch("https://zephyrus.tailafc78.ts.net/explain_issue/", {
+      method: 'POST',
+      headers: {
+        'Accept':'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(data)
+    })
+    .then((response) => response.json())
+    .then((data) => {
+
+      console.log(data);
+      text = data.text;
+      type();
+      localStorage.setItem("explanation", data.text);
+    })
+    .catch((error) => console.error('Error:', error));
   }
 [r1, r2, r3].forEach((radioButton) => {
   radioButton.addEventListener("change", () => {
+    text = "";
     if (r1.checked) {
       if (localStorage.getItem("explanation")) {
-        document.getElementById("resultBox").textContent =
-          localStorage.getItem("explanation");
-      } else {
-        document.getElementById("resultBox").textContent = "explanation";
-        localStorage.setItem("explanation", "explanation");
-        // fetch("http://localhost:5000/explanation")
-        //     .then((response) => response.json())
-        //     .then((data) => {
-        //         document.getElementById("resultBox").value = data.explanation;
-        //         localStorage.setItem("explanation", data.explanation);
-        //     });
+        text = localStorage.getItem("explanation");
+        type();
       }
-    } else if (r2.checked) {
+    }
+     else if (r2.checked) {
       if (localStorage.getItem("summary")) {
-        document.getElementById("resultBox").textContent =
-          localStorage.getItem("summary");
+        text = localStorage.getItem("summary");
+        type();
       } else {
         let data = { url: `${window.location.href}` };
         fetch("https://zephyrus.tailafc78.ts.net/summ_msgs/", {
@@ -447,20 +464,22 @@ if (r1.checked)
           },
           body: JSON.stringify(data),
         })
-          .then((response) => response.json())
-          .then((data) => {
-            console.log(data);
-            document.getElementById("resultBox").textContent = data.summary;
-            localStorage.setItem("summary", data.summary);
-          })
-          .catch((error) => console.error("Error:", error));
+        .then((response) => response.json())
+        .then((data) => {
+
+          console.log(data);
+          text = data.text;
+          type();
+          localStorage.setItem("summary", data.text);
+        })
+        .catch((error) => console.error('Error:', error));
       }
     } else if (r3.checked) {
       if (localStorage.getItem("solutions")) {
-        document.getElementById("resultBox").textContent =
-          localStorage.getItem("solutions");
+        text = localStorage.getItem("solutions");
+        type();
       } else {
-        document.getElementById("resultBox").textContent = "Solutions";
+        text= "Solutions";
         localStorage.setItem("solutions", "Solutions");
         // fetch("http://localhost:5000/solutions")
         //     .then((response) => response.json())
