@@ -392,7 +392,6 @@ div.innerHTML = `
           </div>
         </div>
         <div class="wrapper" id="typewriter">
-          <p class="textBox" id="resultBox" readonly>... </p>
         </div>
     </div>
 </div>
@@ -401,8 +400,12 @@ sidebar.insertBefore(div, sidebar.firstChild);
 
 let text ="";
 
+const subu = "https://fedora.tail44cda.ts.net/";
+const ankit = "https://zephyrus.tailafc78.ts.net/";
+
 const typewriter = document.getElementById('typewriter');
 let index = 0;
+
 function type() {
   if (index < text.length) {
     typewriter.innerHTML = text.slice(0, index) + '<span class="blinking-cursor">|</span>';
@@ -410,7 +413,22 @@ function type() {
     setTimeout(type, Math.random() * 1 + 50);
     } else {
       typewriter.innerHTML = text.slice(0, index) + '<span class="blinking-cursor">|</span>';
+      isTyping = false;
     }
+}
+
+function writer(){
+  if(text!=""){
+    document.querySelector(".scale").innerHTML = "";
+  }else{
+    document.querySelector(".scale").innerHTML = 
+    `<div class="typewriter">
+      <div class="slide"><i></i></div>
+      <div class="paper"></div>
+      <div class="keyboard"></div>
+    </div>`
+  }
+
 }
 
 let r1 = document.querySelector("#r1 input");
@@ -419,12 +437,9 @@ let r3 = document.querySelector("#r3 input");
 
 localStorage.clear();
 
-if (r1.checked)
-  if (localStorage.getItem("explanation")) {
-    text=localStorage.getItem("explanation");
-  } else {
+if (r1.checked) {
     let data = { url: `${window.location.href}` };
-    fetch("https://zephyrus.tailafc78.ts.net/explain_issue/", {
+    fetch(ankit+"explain_issue/", {
       method: 'POST',
       headers: {
         'Accept':'application/json',
@@ -437,30 +452,37 @@ if (r1.checked)
 
       console.log(data);
       text = data.text;
+      writer();
       type();
       localStorage.setItem("explanation", data.text);
     })
     .catch((error) => console.error('Error:', error));
   }
+
 [r1, r2, r3].forEach((radioButton) => {
   radioButton.addEventListener("change", () => {
     text = "";
+    writer();
+    typewriter.innerHTML = "";
+    // index = 0;
     if (r1.checked) {
       if (localStorage.getItem("explanation")) {
         text = localStorage.getItem("explanation");
+        writer();
         type();
       }
     }
      else if (r2.checked) {
       if (localStorage.getItem("summary")) {
         text = localStorage.getItem("summary");
+        writer();
         type();
       } else {
         let data = { url: `${window.location.href}` };
-        fetch("https://zephyrus.tailafc78.ts.net/summ_msgs/", {
+        fetch(ankit+"summ_msgs/", {
           method: "POST",
           headers: {
-            Accept: "application/json",
+            "Accept": "application/json",
             "Content-Type": "application/json",
           },
           body: JSON.stringify(data),
@@ -470,6 +492,7 @@ if (r1.checked)
 
           console.log(data);
           text = data.text;
+          writer();
           type();
           localStorage.setItem("summary", data.text);
         })
@@ -478,17 +501,30 @@ if (r1.checked)
     } else if (r3.checked) {
       if (localStorage.getItem("solutions")) {
         text = localStorage.getItem("solutions");
+        writer();
         type();
       } else {
-        text= "Solutions";
-        localStorage.setItem("solutions", "Solutions");
-        // fetch("http://localhost:5000/solutions")
-        //     .then((response) => response.json())
-        //     .then((data) => {
-        //         document.getElementById("resultBox").value = data.solutions;
-        //         localStorage.setItem("solutions", data.solutions);
-        //     });
+        let data = { url: `${window.location.href}` };
+        fetch(ankit+"find_sols/", {
+          method: "POST",
+          headers: {
+            "Accept": "application/json",
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(data),
+        })
+        .then((response) => response.json())
+        .then((data) => {
+
+          console.log(data);
+          text = data.text;
+          writer();
+          type();
+          localStorage.setItem("solutions", data.text);
+        })
+        .catch((error) => console.error('Error:', error));
       }
     }
-  });
+  
+});
 });
