@@ -490,7 +490,7 @@ if (r2.checked) {
 
       console.log(data);
       text = data.text.replace(/\n/g, "<br>");
-      localStorage.setItem("summary", data.text);
+      localStorage.setItem("summary", text);
       enable();
       writer();
       type();
@@ -524,8 +524,8 @@ if (r2.checked) {
         .then((data) => {
 
           console.log(data);
-          text = data.text;
-          localStorage.setItem("explanation", data.text);
+          text = data.text.replace(/\n/g, "<br>");
+          localStorage.setItem("explanation", text);
           enable();
           writer();
           type();
@@ -548,7 +548,7 @@ if (r2.checked) {
       } else {
         disable();
         let data = { url: `${window.location.href}` };
-        fetch(ankit+"find_sols/", {
+        fetch(ankit+"devision/", {
           method: "POST",
           headers: {
             "Accept": "application/json",
@@ -560,8 +560,8 @@ if (r2.checked) {
         .then((data) => {
 
           console.log(data);
-          text = data.text;
-          localStorage.setItem("solutions", data.text);
+          text = data.text.replace(/\n/g, "<br>");
+          localStorage.setItem("solutions", text);
           enable();
           writer();
           type();
