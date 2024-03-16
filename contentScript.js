@@ -372,11 +372,11 @@ div.innerHTML = `
     <div class='wow'>
         <div class="radio-inputs">
             <label class="radio" id="r1">
-                <input type="radio" name="radio" value="Explanation" checked />
+                <input type="radio" name="radio" value="Explanation"  />
                 <span class="name">Explanation</span>
             </label>
             <label class="radio" id="r2">
-                <input type="radio" name="radio" value="Summary" />
+                <input type="radio" name="radio" value="Summary" checked/>
                 <span class="name">Summary</span>
             </label>
             <label class="radio" id="r3">
@@ -437,9 +437,23 @@ let r3 = document.querySelector("#r3 input");
 
 localStorage.clear();
 
-if (r1.checked) {
+function disable() {
+  [r1, r2, r3].forEach((radioButton) => {
+    radioButton.disabled = true;
+  });
+}
+
+function enable() {
+  [r1, r2, r3].forEach((radioButton) => {
+    radioButton.disabled = false;
+  });
+}
+
+
+if (r2.checked) {
     let data = { url: `${window.location.href}` };
-    fetch(ankit+"explain_issue/", {
+    disable();
+    fetch(ankit+"summ_msgs/", {
       method: 'POST',
       headers: {
         'Accept':'application/json',
@@ -452,9 +466,10 @@ if (r1.checked) {
 
       console.log(data);
       text = data.text;
+      localStorage.setItem("summary", data.text);
+      enable();
       writer();
       type();
-      localStorage.setItem("explanation", data.text);
     })
     .catch((error) => console.error('Error:', error));
   }
@@ -470,16 +485,10 @@ if (r1.checked) {
         text = localStorage.getItem("explanation");
         writer();
         type();
-      }
-    }
-     else if (r2.checked) {
-      if (localStorage.getItem("summary")) {
-        text = localStorage.getItem("summary");
-        writer();
-        type();
       } else {
+        disable();
         let data = { url: `${window.location.href}` };
-        fetch(ankit+"summ_msgs/", {
+        fetch(ankit+"explain_issue/", {
           method: "POST",
           headers: {
             "Accept": "application/json",
@@ -492,11 +501,20 @@ if (r1.checked) {
 
           console.log(data);
           text = data.text;
+          localStorage.setItem("explanation", data.text);
+          enable();
           writer();
           type();
-          localStorage.setItem("summary", data.text);
+          
         })
         .catch((error) => console.error('Error:', error));
+      }
+    }
+     else if (r2.checked) {
+      if (localStorage.getItem("summary")) {
+        text = localStorage.getItem("summary");
+        writer();
+        type();
       }
     } else if (r3.checked) {
       if (localStorage.getItem("solutions")) {
@@ -504,6 +522,7 @@ if (r1.checked) {
         writer();
         type();
       } else {
+        disable();
         let data = { url: `${window.location.href}` };
         fetch(ankit+"find_sols/", {
           method: "POST",
@@ -518,9 +537,11 @@ if (r1.checked) {
 
           console.log(data);
           text = data.text;
+          localStorage.setItem("solutions", data.text);
+          enable();
           writer();
           type();
-          localStorage.setItem("solutions", data.text);
+          
         })
         .catch((error) => console.error('Error:', error));
       }
