@@ -2,6 +2,11 @@
 
 This project is a browser extension that enhances the GitHub issue page by injecting a UI and providing additional features.
 
+
+https://github.com/re-juvenate/gitGuru-frontend/assets/90760974/285e948a-f6a3-44a9-bea8-30346cb41e3c
+
+
+
 ## Features
 
 - Automatic detection of the active web page to determine if it is a GitHub issue page.
